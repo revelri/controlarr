@@ -1,0 +1,8 @@
+node_modules
+dist
+bin
+.env
+.git
+coverage
+.vitest
+*.tsbuildinfo

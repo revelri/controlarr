@@ -4,3 +4,6 @@ dist/
 *.tsbuildinfo
 coverage/
 .vitest/
+bin/
+mcpb/
+*.mcpb

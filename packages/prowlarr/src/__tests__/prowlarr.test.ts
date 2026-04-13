@@ -9,7 +9,7 @@ describe("ProwlarrService (integration)", () => {
     const url = process.env.PROWLARR_URL!;
     const key = process.env.PROWLARR_API_KEY!;
     if (!url || !key) throw new Error("PROWLARR env vars required");
-    svc = new ProwlarrService(new ArrClient(url, key));
+    svc = new ProwlarrService(new ArrClient(url, key, { timeout: 90_000 }));
   });
 
   describe("system", () => {
@@ -44,7 +44,7 @@ describe("ProwlarrService (integration)", () => {
   });
 
   describe("search", () => {
-    it("searches across indexers", { timeout: 60_000 }, async () => {
+    it("searches across indexers", { timeout: 120_000 }, async () => {
       const results = await svc.search("linux");
       expect(Array.isArray(results)).toBe(true);
     });
