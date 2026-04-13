@@ -25,3 +25,4 @@ export {
   AnnotWriteCreate,
   AnnotDestructive,
 } from "./types.js";
+export { formatBytes } from "./format.js";

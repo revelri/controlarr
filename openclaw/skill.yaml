@@ -1,0 +1,51 @@
+name: controlarr
+description: Media stack management — Radarr, Sonarr, Prowlarr, Bazarr, Jellyseerr, Jellyfin
+version: 0.1.0
+author: revelri
+
+mcp_servers:
+  controlarr:
+    command: node
+    args:
+      - /home/revelri/Dev/Pipeline/Building/controlarr/packages/server/dist/cli.js
+    env:
+      RADARR_URL: ${RADARR_URL}
+      RADARR_API_KEY: ${RADARR_API_KEY}
+      SONARR_URL: ${SONARR_URL}
+      SONARR_API_KEY: ${SONARR_API_KEY}
+      PROWLARR_URL: ${PROWLARR_URL}
+      PROWLARR_API_KEY: ${PROWLARR_API_KEY}
+      BAZARR_URL: ${BAZARR_URL}
+      BAZARR_API_KEY: ${BAZARR_API_KEY}
+      JELLYSEERR_URL: ${JELLYSEERR_URL}
+      JELLYSEERR_API_KEY: ${JELLYSEERR_API_KEY}
+
+  jellyfin:
+    command: jellyfin-mcp
+    env:
+      JELLYFIN_URL: ${JELLYFIN_URL}
+      JELLYFIN_API_KEY: ${JELLYFIN_API_KEY}
+
+prompt: |
+  You have access to a complete media management stack via MCP tools:
+
+  ## Services
+  - **Radarr** (radarr_*): Movie management — search, add, monitor, queue
+  - **Sonarr** (sonarr_*): TV series management — search, add, episodes, monitor
+  - **Prowlarr** (prowlarr_*): Indexer management — search releases, manage indexers
+  - **Bazarr** (bazarr_*): Subtitle management — search, download, wanted lists
+  - **Jellyseerr** (jellyseerr_*): Media requests — search TMDB, request, approve/decline
+  - **Jellyfin** (jellyfin_*): Media server — browse library, playback, admin
+
+  ## Common Workflows
+  1. **Add a movie**: jellyseerr_search → jellyseerr_request_movie (or radarr_search → radarr_add_movie)
+  2. **Add a TV show**: jellyseerr_search → jellyseerr_request_tv (or sonarr_search → sonarr_add_series)
+  3. **Check what's downloading**: radarr_queue / sonarr_queue
+  4. **Find missing subtitles**: bazarr_wanted_series / bazarr_wanted_movies
+  5. **Search for releases**: prowlarr_search
+  6. **Browse library**: jellyfin_search / jellyfin_browse
+
+  ## Important
+  - Destructive operations (delete) require confirm=true
+  - Use search tools first to find IDs before add/edit/delete
+  - All list operations support pagination (page, pageSize)
