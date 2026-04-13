@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "composite": true
+  },
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/radarr" },
+    { "path": "packages/sonarr" },
+    { "path": "packages/prowlarr" },
+    { "path": "packages/bazarr" },
+    { "path": "packages/jellyseerr" },
+    { "path": "packages/server" }
+  ],
+  "files": []
+}

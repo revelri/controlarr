@@ -1,0 +1,33 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../radarr"
+    },
+    {
+      "path": "../sonarr"
+    },
+    {
+      "path": "../prowlarr"
+    },
+    {
+      "path": "../bazarr"
+    },
+    {
+      "path": "../jellyseerr"
+    }
+  ],
+  "exclude": [
+    "src/__tests__"
+  ]
+}

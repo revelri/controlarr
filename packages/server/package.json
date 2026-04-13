@@ -1,0 +1,29 @@
+{
+  "name": "@controlarr/server",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "controlarr": "dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@controlarr/core": "*",
+    "@controlarr/radarr": "*",
+    "@controlarr/sonarr": "*",
+    "@controlarr/prowlarr": "*",
+    "@controlarr/bazarr": "*",
+    "@controlarr/jellyseerr": "*",
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.24.0"
+  }
+}
