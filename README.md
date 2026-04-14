@@ -210,6 +210,31 @@ Tool annotations declare `readOnlyHint`, `destructiveHint`, and `idempotentHint`
 ## Architecture
 
 ```
+MCP Client (Claude, etc.)
+         │ stdio / JSON-RPC
+         ▼
+┌─────────────────────────┐
+│    Unified Server       │
+│  service discovery,     │
+│  tool routing           │
+├───┬───┬───┬───┬───┬─────┤
+│ R │ S │ P │ B │ J │ JF  │
+│ a │ o │ r │ a │ e │ e   │
+│ d │ n │ o │ z │ l │ l   │
+│ a │ a │ w │ a │ l │ l   │
+│ r │ r │ l │ r │ y │ y   │
+│ r │ r │ a │ r │ s │ f   │
+│   │   │ r │   │ e │ i   │
+│   │   │ r │   │ e │ n   │
+│   │   │   │   │ r │     │
+│   │   │   │   │ r │     │
+└───┴───┴───┴───┴───┴─────┘
+         │ HTTP + API keys
+         ▼
+   *arr / Jellyfin APIs
+```
+
+```
 controlarr/
   packages/
     core/          Shared HTTP client, config, pagination, MCP helpers
@@ -261,6 +286,17 @@ Tests require running services and a populated `.env`. The integration tests spa
 | Bazarr | 9 | Series, movies, wanted, providers, history |
 | Jellyseerr | 11 | Search, trending, requests, users, issues |
 | Integration | 10 | Full MCP protocol, flag filtering, standalone servers, Jellyfin binary |
+
+## Design Rationale
+
+| Decision | Reasoning |
+|----------|-----------|
+| Monorepo with standalone packages | Each service compiles and runs independently, but the unified server composes them with zero duplication |
+| Real services over mocks | Mocked tests can't catch API drift — all 85 tests hit real services for true integration confidence |
+| Tool annotations | `readOnlyHint`, `destructiveHint`, `idempotentHint` let MCP clients enforce their own safety policies without server-side guessing |
+| confirm: true gate | Destructive operations preview what they'll delete and require explicit confirmation — impossible to accidentally drop a movie |
+| Bundled Go binary for Jellyfin | Best available Jellyfin MCP server is in Go — polyglot bundling beats rewriting, with full MIT attribution |
+| Zod-validated env config | Config errors surface at startup with clear messages, not as runtime 500s buried in tool calls |
 
 ## Acknowledgements
 
